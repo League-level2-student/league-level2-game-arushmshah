@@ -1,6 +1,7 @@
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -24,17 +25,24 @@ public class brick {
 	
 	private ImageIcon breakBrickImage;
 	private ImageIcon solidBrickImage;
+
+	
+	
 	
 	public brick()
 	{
-		breakBrickImage=new ImageIcon("break_brick.jpg");
-		solidBrickImage=new ImageIcon("solid_brick.jpg");	
+		breakBrickImage=new ImageIcon(getClass().getResource("break_brick.jpg"));
+		solidBrickImage=new ImageIcon(getClass().getResource("solid_brick.jpg"));	
+		
 		
 		for(int i=0; i< brickON.length;i++)
 		{
 			brickON[i] = 1;
 		}
 	}
+	
+	
+	
 	
 	public void draw(Component c, Graphics g)
 	{

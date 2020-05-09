@@ -38,7 +38,6 @@ public class Gameplay  extends JPanel implements ActionListener
 	
 	private Timer timer;
 	private int delay=8;
-	
 	private Player1Listener player1Listener;
 	private Player2Listener player2Listener;
 	
@@ -46,6 +45,9 @@ public class Gameplay  extends JPanel implements ActionListener
 	private Player2Bullet player2Bullet = null;
 	
 	private boolean play = true;
+	Random powerup = new Random();
+
+	
 	
 	public Gameplay()
 	{				
@@ -59,7 +61,11 @@ public class Gameplay  extends JPanel implements ActionListener
 		setFocusTraversalKeysEnabled(false);
         timer=new Timer(delay,this);
 		timer.start();
+	
 	}
+	
+	
+	
 	
 	public void paint(Graphics g)
 	{    		
@@ -77,29 +83,89 @@ public class Gameplay  extends JPanel implements ActionListener
 		// draw Breakable bricks	
 		br.draw(this, g);
 		
+		 // draw Green Brick
+ 	
+		
+		
+		Rectangle rect1 = new Rectangle(725,170,30,10);
+		Rectangle rect2 = new Rectangle();
+		Color colorRect1 =Color.green;
+		
+		
+		
+		g.setColor(colorRect1);
+		g.fillRect(rect1.x,rect1.y,rect1.width,rect1.height);
+	    g.fillRect(665, 170, 90, 10);
+	    
+	
+	    
+	 		//...
+	 		
+	 		  if(player1lives==4) {
+	 		    	g.setColor(Color.WHITE);
+	 		    	 g.fillRect(665, 170, 90, 10);
+	 		    }
+	    if(player1lives==2) {
+	    	g.setColor(Color.YELLOW);
+	    	 g.fillRect(665, 170, 90, 10);
+	    }
+	    if(player1lives==1) {
+	    	g.setColor(Color.red);
+	    	 g.fillRect(665, 170, 90, 10);
+	    }
+	    if(player1lives==0) {
+	    	g.setColor(Color.BLACK);
+	    	 g.fillRect(665, 170, 90, 10);
+	    }
+  
+	    
+	   
+	    
+	   //Health Bar 
+	 g.setColor(Color.GREEN);
+	 g.fillRect(665, 200, 90, 10);
+		
+	 if(player2lives==4) {
+	    	g.setColor(Color.WHITE);
+	    	 g.fillRect(665, 200, 90, 10);
+	    }
+	 
+	 if(player2lives==2) {
+	    	g.setColor(Color.YELLOW);
+	    	 g.fillRect(665, 200, 90, 10);
+	    }
+	    if(player2lives==1) {
+	    	g.setColor(Color.red);
+	    	 g.fillRect(665, 200, 90, 10);
+	    }
+	    if(player2lives==0) {
+	    	g.setColor(Color.BLACK);
+	    	 g.fillRect(665, 200, 90, 10);
+	    }	
+		
+		
 		if(play)
-		{
 			// draw player 1
 			if(player1up)
-				player1=new ImageIcon("player1_tank_up.png");	
+				player1=new ImageIcon(getClass().getResource("player1_tank_up.png"));	
 			else if(player1down)
-				player1=new ImageIcon("player1_tank_down.png");
+				player1=new ImageIcon(getClass().getResource("player1_tank_down.png"));
 			else if(player1right)
-				player1=new ImageIcon("player1_tank_right.png");
+				player1=new ImageIcon(getClass().getResource("player1_tank_right.png"));
 			else if(player1left)
-				player1=new ImageIcon("player1_tank_left.png");
+				player1=new ImageIcon(getClass().getResource("player1_tank_left.png"));
 				
 			player1.paintIcon(this, g, player1X, player1Y);
 			
 			// draw player 2
 			if(player2up)
-				player2=new ImageIcon("player2_tank_up.png");	
+				player2=new ImageIcon(getClass().getResource("player2_tank_up.png"));	
 			else if(player2down)
-				player2=new ImageIcon("player2_tank_down.png");
+				player2=new ImageIcon(getClass().getResource("player2_tank_down.png"));
 			else if(player2right)
-				player2=new ImageIcon("player2_tank_right.png");
+				player2=new ImageIcon(getClass().getResource("player2_tank_right.png"));
 			else if(player2left)
-				player2=new ImageIcon("player2_tank_left.png");
+				player2=new ImageIcon(getClass().getResource("player2_tank_left.png"));
 						
 			player2.paintIcon(this, g, player2X, player2Y);
 			
@@ -130,13 +196,15 @@ public class Gameplay  extends JPanel implements ActionListener
 					player1Bullet.draw(g);
 				}
 				
+			
+				
 				
 				if(new Rectangle(player1Bullet.getX(), player1Bullet.getY(), 10, 10)
 				.intersects(new Rectangle(player2X, player2Y, 50, 50)))
 				{
 					player1score += 10;
 					player2lives -= 1;
-					player1Bullet = null;
+					//player1Bullet = null;
 					player1Shoot = false;
 					bulletShootDir1 = "";
 				}
@@ -144,7 +212,7 @@ public class Gameplay  extends JPanel implements ActionListener
 				if(br.checkCollision(player1Bullet.getX(), player1Bullet.getY())
 						|| br.checkSolidCollision(player1Bullet.getX(), player1Bullet.getY()))
 				{
-					player1Bullet = null;
+					//player1Bullet = null;
 					player1Shoot = false;
 					bulletShootDir1 = "";				
 				}
@@ -154,7 +222,7 @@ public class Gameplay  extends JPanel implements ActionListener
 						|| player1Bullet.getX() < 1
 						|| player1Bullet.getX() > 630)
 				{
-					player1Bullet = null;
+					//player1Bullet = null;
 					player1Shoot = false;
 					bulletShootDir1 = "";
 				}
@@ -193,7 +261,7 @@ public class Gameplay  extends JPanel implements ActionListener
 				{
 					player2score += 10;
 					player1lives -= 1;
-					player2Bullet = null;
+					//player2Bullet = null;
 					player2Shoot = false;
 					bulletShootDir2 = "";
 				}
@@ -201,7 +269,7 @@ public class Gameplay  extends JPanel implements ActionListener
 				if(br.checkCollision(player2Bullet.getX(), player2Bullet.getY())
 						|| br.checkSolidCollision(player2Bullet.getX(), player2Bullet.getY()))
 				{
-					player2Bullet = null;
+					//player2Bullet = null;
 					player2Shoot = false;
 					bulletShootDir2 = "";				
 				}
@@ -211,12 +279,12 @@ public class Gameplay  extends JPanel implements ActionListener
 						|| player2Bullet.getX() < 1
 						|| player2Bullet.getX() > 630)
 				{
-					player2Bullet = null;
+					//player2Bullet = null;
 					player2Shoot = false;
 					bulletShootDir2 = "";
 				}
 			}
-		}
+		
 	
 		
 		// the scores 		
@@ -227,8 +295,8 @@ public class Gameplay  extends JPanel implements ActionListener
 		g.drawString("Player 2:  "+player2score, 670,90);
 		
 		g.drawString("Lives", 700,150);
-		g.drawString("Player 1:  "+player1lives, 670,180);
-		g.drawString("Player 2:  "+player2lives, 670,210);
+		
+		
 		
 		if(player1lives == 0)
 		{
